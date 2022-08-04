@@ -18,7 +18,14 @@ func main() {
 								"  London       - just a city\n" + 
 								"  \"London, GB\" - city and country (note the quotes and a comma)")
 
+	flagDefaultLoc      := flag.Bool("d", false, "set the passed location as default")
+	flagUnsetDefaultLoc := flag.Bool("u", false, "unsets the current default location")
+
 	flag.Parse()
+
+	if *flagDefaultLoc && *flagUnsetDefaultLoc {
+		log.Fatal("flags '-d' and '-u' cannot be used simultaneously")
+	}
 
 	originalWD, err := os.Getwd()
 	if err != nil {
@@ -40,6 +47,15 @@ func main() {
 		log.Fatal("OpenUV API key not provided")
 	}
 
+	if *flagUnsetDefaultLoc {
+		s.DefaultLocation = nil
+
+		if err = SaveSettings(s); err != nil {
+			log.Fatal(err)
+		}
+		return
+	}
+
 	client := http.Client{
 		Timeout: time.Minute,
 		Transport: &http.Transport{
@@ -53,6 +69,13 @@ func main() {
 		loc, err = GetLocation(&client, s, *flagLocation)
 		if err != nil {
 			log.Fatal(err)
+		}
+
+		if *flagDefaultLoc {
+			s.DefaultLocation = loc
+			if err = SaveSettings(s); err != nil {
+				log.Fatal(err)
+			}
 		}
 	} else if s.DefaultLocation != nil {
 		loc = s.DefaultLocation
