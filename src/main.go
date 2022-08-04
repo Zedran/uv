@@ -1,6 +1,7 @@
 package main
 
 import (
+	"flag"
 	"fmt"
 	"log"
 	"net/http"
@@ -11,6 +12,13 @@ import (
 
 func main() {
 	log.SetFlags(0)
+
+	flagLocation := flag.String("l", "", 
+								"specify report's location:\n" + 
+								"  Londo        - just a city\n" + 
+								"  \"London, GB\" - city and country (note the quotes and a comma)")
+
+	flag.Parse()
 
 	originalWD, err := os.Getwd()
 	if err != nil {
@@ -39,7 +47,7 @@ func main() {
 		},
 	}
 
-	loc, err := GetLocation(&client, s, "London,GB")
+	loc, err := GetLocation(&client, s, *flagLocation)
 	if err != nil {
 		log.Fatal(err)
 	}
