@@ -15,7 +15,7 @@ func main() {
 
 	flagLocation := flag.String("l", "", 
 								"specify report's location:\n" + 
-								"  Londo        - just a city\n" + 
+								"  London       - just a city\n" + 
 								"  \"London, GB\" - city and country (note the quotes and a comma)")
 
 	flag.Parse()
