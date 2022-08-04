@@ -47,9 +47,18 @@ func main() {
 		},
 	}
 
-	loc, err := GetLocation(&client, s, *flagLocation)
-	if err != nil {
-		log.Fatal(err)
+	var loc *Location
+
+	if len(*flagLocation) > 0 {
+		loc, err = GetLocation(&client, s, *flagLocation)
+		if err != nil {
+			log.Fatal(err)
+		}
+	} else if s.DefaultLocation != nil {
+		loc = s.DefaultLocation
+	} else {
+		log.Fatal("no location has been specified and the default one is not set")
+
 	}
 
 	fmt.Println(loc.Name, loc.Country, loc.Lat, loc.Lon)
