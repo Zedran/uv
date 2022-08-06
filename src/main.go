@@ -84,5 +84,10 @@ func main() {
 
 	}
 
-	fmt.Println(loc.Name, loc.Country, loc.Lat, loc.Lon)
+	uv, err := GetUVReport(&client, loc, s)
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	fmt.Printf("%s, %s %.3f %.3f\n\n%s",loc.Name, loc.Country, loc.Lat, loc.Lon, uv.ToString())
 }
