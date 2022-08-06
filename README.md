@@ -2,7 +2,7 @@
 
 ## Introduction
 
-UV is an app written in Go that checks the current level of UV radiation measured on the UV Index scale.
+UV is a command line application written in Go that checks the current level of UV radiation measured on the UV Index scale.
 
 ## Setup
 
@@ -30,9 +30,33 @@ The settings file is structured as follows:
 
 Note that southern latitude and western longitude are negative.
 
+## Usage
+
+### Flags
+
+| Flag | Description                                                             |
+|------|-------------------------------------------------------------------------|
+| `-l` | specify location, otherwise the default location will be used           |
+| `-d` | make the location specified with the `-l` flag the new default location |
+| `-u` | unset the current default location                                      |
+
+If the city name has more than one word in it, wrap it in quotes. If you want to specify a country name as well, separate it from the city name with a comma and put the whole thing in quotes.
+
+### Examples
+
+| Syntax                   | Meaning                                            |
+|--------------------------|----------------------------------------------------|
+| `uv -l London`           | query the API with city name only as the location  |
+| `uv -l "Rio de Janeiro"` | query the API with a multi-word city name          |
+| `uv -l "London, GB"`     | query the API by specifying city and country       |
+| `uv -l London -d`        | query the API and make London the default location |
+| `uv`                     | query the API using the default location           |
+| `uv -u`                  | unset the current default location                 |
+
 ## Resources
 
 * [UV Index](https://en.wikipedia.org/wiki/Ultraviolet_index)
+* [Fizpatrick scale](https://en.wikipedia.org/wiki/Fitzpatrick_scale)
 
 * [OpenUV](https://www.openuv.io/)
 * [OpenWeather](https://openweathermap.org/)
