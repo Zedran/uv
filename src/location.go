@@ -21,7 +21,7 @@ type Location struct {
 }
 
 // A template URL for querying the Geocoding API
-const OPEN_WEATHER_URL  string = "http://api.openweathermap.org/geo/1.0/direct?q=%s&limit=%d&appid=%s"
+const OPEN_WEATHER_URL  string = "https://api.openweathermap.org/geo/1.0/direct?q=%s&limit=%d&appid=%s"
 
 // This error is returned by GetLocation if the Geocoding API does not provide any result for the query
 var errLocationNotFound error = errors.New("location not found")
