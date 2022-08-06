@@ -5,8 +5,6 @@ import (
 	"fmt"
 	"log"
 	"net/http"
-	"os"
-	"path/filepath"
 	"time"
 )
 
@@ -26,14 +24,6 @@ func main() {
 	if *flagDefaultLoc && *flagUnsetDefaultLoc {
 		log.Fatal("flags '-d' and '-u' cannot be used simultaneously")
 	}
-
-	originalWD, err := os.Getwd()
-	if err != nil {
-		log.Fatal(err)
-	}
-
-	os.Chdir(filepath.Dir(os.Args[0]))
-	defer os.Chdir(originalWD)
 
 	s, err := LoadSettings()
 	if err != nil {

@@ -2,7 +2,6 @@ package main
 
 import (
 	"encoding/json"
-	"errors"
 	"os"
 )
 
@@ -28,10 +27,14 @@ type Settings struct {
  */
 func LoadSettings() (*Settings, error) {
 	stream, err := os.ReadFile(SETTINGS_FILE)
-	if errors.Is(err, os.ErrNotExist) {
-		return nil, SaveSettings(nil)
-	} else if err != nil {
-		return nil, err
+	if err != nil {
+		path, err := GetResPath(SETTINGS_FILE)
+		if err != nil {
+			return nil, err
+		}
+		if stream, err = os.ReadFile(path); err != nil {
+			return nil, SaveSettings(nil)
+		}
 	}
 
 	var s Settings
