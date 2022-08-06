@@ -36,8 +36,9 @@ Note that southern latitude and western longitude are negative.
 
 | Flag | Description                                                             |
 |------|-------------------------------------------------------------------------|
-| `-l` | specify location, otherwise the default location will be used           |
 | `-d` | make the location specified with the `-l` flag the new default location |
+| `-h` | display help                                                            |
+| `-l` | specify location, otherwise the default location will be used           |
 | `-u` | unset the current default location                                      |
 
 If the city name has more than one word in it, wrap it in quotes. If you want to specify a country name as well, separate it from the city name with a comma and put the whole thing in quotes.
