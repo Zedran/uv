@@ -8,6 +8,8 @@ import (
 	"time"
 )
 
+var ROOT_DIR string
+
 func main() {
 	log.SetFlags(0)
 
@@ -23,6 +25,13 @@ func main() {
 
 	if *flagDefaultLoc && *flagUnsetDefaultLoc {
 		log.Fatal("flags '-d' and '-u' cannot be used simultaneously")
+	}
+
+	var err error
+
+	ROOT_DIR, err = GetRootDir()
+	if err != nil {
+		log.Fatal(err)
 	}
 
 	s, err := LoadSettings()

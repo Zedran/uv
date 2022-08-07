@@ -3,6 +3,7 @@ package main
 import (
 	"encoding/json"
 	"os"
+	"path"
 )
 
 const (
@@ -26,15 +27,9 @@ type Settings struct {
  * an empty one.
  */
 func LoadSettings() (*Settings, error) {
-	stream, err := os.ReadFile(SETTINGS_FILE)
+	stream, err := os.ReadFile(path.Join(ROOT_DIR, SETTINGS_FILE))
 	if err != nil {
-		path, err := GetResPath(SETTINGS_FILE)
-		if err != nil {
-			return nil, err
-		}
-		if stream, err = os.ReadFile(path); err != nil {
-			return nil, SaveSettings(nil)
-		}
+		return nil, SaveSettings(nil)
 	}
 
 	var s Settings
@@ -52,8 +47,8 @@ func SaveSettings(s *Settings) error {
 		s = &Settings{DefaultLocation: nil}
 	}
 
-	if _, err := os.Stat(SETTINGS_DIR); os.IsNotExist(err) {
-		err := os.Mkdir(SETTINGS_DIR, 0644)
+	if _, err := os.Stat(path.Join(ROOT_DIR, SETTINGS_DIR)); os.IsNotExist(err) {
+		err := os.Mkdir(path.Join(ROOT_DIR, SETTINGS_DIR), 0775)
 		if err != nil {
 			return err
 		}
@@ -64,7 +59,7 @@ func SaveSettings(s *Settings) error {
 		return err
 	}
 
-	f, err := os.OpenFile(SETTINGS_FILE, os.O_CREATE|os.O_TRUNC|os.O_WRONLY, 0644)
+	f, err := os.OpenFile(path.Join(ROOT_DIR, SETTINGS_FILE), os.O_CREATE|os.O_TRUNC|os.O_WRONLY, 0775)
 	if err != nil {
 		return err
 	}
