@@ -88,5 +88,5 @@ func main() {
 		log.Fatal(err)
 	}
 
-	fmt.Printf("%s, %s    %.3f %.3f    %s\n\n%s", loc.Name, loc.Country, loc.Lat, loc.Lon, uv.UVTime, uv.ToString())
+	fmt.Printf("%s, %s    %.3f %.3f    %s\n\n%s\n", loc.Name, loc.Country, loc.Lat, loc.Lon, uv.UVTime, uv.ToString())
 }
