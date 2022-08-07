@@ -16,17 +16,17 @@ type UVReport struct {
 
 /* Result returned from OpenUV API call. */
 type Result struct {
-	UV       float32 `json:"uv"`
-	UVMax    float32 `json:"uv_max"`
+	UV        float32 `json:"uv"`
+	UVMax     float32 `json:"uv_max"`
 
-	UVTime   string  `json:"uv_time"`
-	UVMaxTime string `json:"uv_max_time"`
+	UVTime    string  `json:"uv_time"`
+	UVMaxTime string  `json:"uv_max_time"`
 
-	Ozone    float32 `json:"ozone"`
+	Ozone     float32 `json:"ozone"`
 
-	SafeExposureTime `json:"safe_exposure_time"`
+	SafeExposureTime  `json:"safe_exposure_time"`
 
-	SunInfo          `json:"sun_info"`
+	SunInfo           `json:"sun_info"`
 }
 
 /* Safe exposure time in minutes for different skin types (Fitzpatrick scale). */
