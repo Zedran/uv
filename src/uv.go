@@ -19,6 +19,8 @@ type Result struct {
 	UV       float32 `json:"uv"`
 	UVMax    float32 `json:"uv_max"`
 
+	UVTime   string  `json:"uv_time"`
+
 	Ozone    float32 `json:"ozone"`
 
 	SafeExposureTime `json:"safe_exposure_time"`
@@ -52,13 +54,15 @@ type SunTimes struct {
 	GHMorning  string `json:"goldenHourEnd"`
 }
 
-/* Transforms all SunTimes values into more readable format. */
+/* Transforms the time values of UVReport struct into a more readable format. */
 func (uv *UVReport) Reformat() {
+	uv.UVTime     = ReformatTime(uv.UVTime,     HEADER_TIME_FORMAT)
+
 	uv.Sunrise    = ReformatTime(uv.Sunrise,    DEFAULT_SUN_TIMES_FORMAT)
 	uv.SolarNoon  = ReformatTime(uv.SolarNoon,  DEFAULT_SUN_TIMES_FORMAT)
 	uv.Sunset     = ReformatTime(uv.Sunset,     DEFAULT_SUN_TIMES_FORMAT)
 	uv.Night      = ReformatTime(uv.Night,      DEFAULT_SUN_TIMES_FORMAT)
-	
+
 	uv.GoldenHour = ReformatTime(uv.GoldenHour, DEFAULT_SUN_TIMES_FORMAT)
 	uv.GHMorning  = ReformatTime(uv.GHMorning,  DEFAULT_SUN_TIMES_FORMAT)
 }

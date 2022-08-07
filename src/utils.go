@@ -10,6 +10,7 @@ import (
 
 const (
 	DEFAULT_SUN_TIMES_FORMAT string = "15:04"
+	HEADER_TIME_FORMAT       string = "2006-02-01 15:04 UTC"
 	OPEN_UV_TIME_FORMAT      string = "2006-02-01T15:04:05.999Z"
 )
 
