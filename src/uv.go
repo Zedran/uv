@@ -76,12 +76,12 @@ func (uv *UVReport) ToString() string {
 		"  Current: %6.2f\n"          + 
 		"  Max:     %6.2f (%s)\n"     + 
 		"  Ozone:   %6.2f\n\n"        + 
-		"Sunrise: %14s\n"             + 
-		"Solar Noon: %11s\n"          + 
-		"Sunset: %15s\n"              + 
-		"Night: %16s\n"               + 
-		"Golden Hour: %10s\n"         + 
-		"Morning GH ends: %6s\n\n"    + 
+		"Sunrise: %15s\n"             + 
+		"Solar Noon: %12s\n"          + 
+		"Sunset: %16s\n"              + 
+		"Night: %17s\n"               + 
+		"Golden Hour: %11s\n"         + 
+		"Morning GH ends: %7s\n\n"    + 
 		"Safe Exposure Time [min]:\n" + 
 		"  1: %5d   |   4: %5d\n"     + 
 		"  2: %5d   |   5: %5d\n"     + 
