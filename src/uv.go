@@ -52,6 +52,17 @@ type SunTimes struct {
 	GHMorning  string `json:"goldenHourEnd"`
 }
 
+/* Transforms all SunTimes values into more readable format. */
+func (uv *UVReport) Reformat(newFormat string) {
+	uv.Sunrise    = ReformatTime(uv.Sunrise,    newFormat)
+	uv.SolarNoon  = ReformatTime(uv.SolarNoon,  newFormat)
+	uv.Sunset     = ReformatTime(uv.Sunset,     newFormat)
+	uv.Night      = ReformatTime(uv.Night,      newFormat)
+
+	uv.GoldenHour = ReformatTime(uv.GoldenHour, newFormat)
+	uv.GHMorning  = ReformatTime(uv.GHMorning,  newFormat)
+}
+
 /* Formats the UVReport struct into string. */
 func (uv *UVReport) ToString() string {
 	return fmt.Sprintf(
@@ -59,12 +70,12 @@ func (uv *UVReport) ToString() string {
 		"  Current: %6.2f\n"          + 
 		"  Max:     %6.2f\n"          + 
 		"  Ozone:   %6.2f\n\n"        + 
-		"Sunrise: %32s\n"             + 
-		"Solar Noon: %29s\n"          + 
-		"Sunset: %33s\n"              + 
-		"Night: %34s\n"               + 
-		"Golden Hour: %28s\n"         + 
-		"Morning GH ends: %s\n\n"     + 
+		"Sunrise: %14s\n"             + 
+		"Solar Noon: %11s\n"          + 
+		"Sunset: %15s\n"              + 
+		"Night: %16s\n"               + 
+		"Golden Hour: %10s\n"         + 
+		"Morning GH ends: %6s\n\n"    + 
 		"Safe Exposure Time [min]:\n" + 
 		"  1: %5d   |   4: %5d\n"     + 
 		"  2: %5d   |   5: %5d\n"     + 
@@ -101,6 +112,8 @@ func GetUVReport(client *http.Client, loc *Location, s *Settings) (*UVReport, er
 	var uvReport UVReport
 
 	err = json.NewDecoder(resp.Body).Decode(&uvReport)
+
+	uvReport.Reformat(DEFAULT_SUN_TIMES_FORMAT)
 	
 	return &uvReport, err
 }
