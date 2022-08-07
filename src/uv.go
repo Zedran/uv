@@ -53,14 +53,14 @@ type SunTimes struct {
 }
 
 /* Transforms all SunTimes values into more readable format. */
-func (uv *UVReport) Reformat(newFormat string) {
-	uv.Sunrise    = ReformatTime(uv.Sunrise,    newFormat)
-	uv.SolarNoon  = ReformatTime(uv.SolarNoon,  newFormat)
-	uv.Sunset     = ReformatTime(uv.Sunset,     newFormat)
-	uv.Night      = ReformatTime(uv.Night,      newFormat)
-
-	uv.GoldenHour = ReformatTime(uv.GoldenHour, newFormat)
-	uv.GHMorning  = ReformatTime(uv.GHMorning,  newFormat)
+func (uv *UVReport) Reformat() {
+	uv.Sunrise    = ReformatTime(uv.Sunrise,    DEFAULT_SUN_TIMES_FORMAT)
+	uv.SolarNoon  = ReformatTime(uv.SolarNoon,  DEFAULT_SUN_TIMES_FORMAT)
+	uv.Sunset     = ReformatTime(uv.Sunset,     DEFAULT_SUN_TIMES_FORMAT)
+	uv.Night      = ReformatTime(uv.Night,      DEFAULT_SUN_TIMES_FORMAT)
+	
+	uv.GoldenHour = ReformatTime(uv.GoldenHour, DEFAULT_SUN_TIMES_FORMAT)
+	uv.GHMorning  = ReformatTime(uv.GHMorning,  DEFAULT_SUN_TIMES_FORMAT)
 }
 
 /* Formats the UVReport struct into string. */
@@ -113,7 +113,7 @@ func GetUVReport(client *http.Client, loc *Location, s *Settings) (*UVReport, er
 
 	err = json.NewDecoder(resp.Body).Decode(&uvReport)
 
-	uvReport.Reformat(DEFAULT_SUN_TIMES_FORMAT)
+	uvReport.Reformat()
 	
 	return &uvReport, err
 }
