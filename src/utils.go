@@ -22,7 +22,7 @@ const (
 	return filepath.Dir(exePath), nil
 }
 
-/* Reparses the timestamp from format used by OpenUV API into newFormat. */
+/* Converts timestamp from format used by OpenUV API into newFormat. */
 func ReformatTime(timestamp, newFormat string) string {
 	t, _ := time.Parse(OPEN_UV_TIME_FORMAT, timestamp)
 	return t.Format(newFormat)
