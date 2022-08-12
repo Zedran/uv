@@ -21,6 +21,9 @@ type Settings struct {
 
 	// Default location for which the report is generated if no other location is specified
 	DefaultLocation *Location `json:"default_location"`
+
+	// Request limit for user's OpenUV account. Setting it to -1 disables cache.
+	RequestLimit    int64     `json:"request_limit"`
 }
 
 /* Loads settings from file. If the file is not present, it calls SaveSettings to generate
@@ -44,7 +47,7 @@ func LoadSettings() (*Settings, error) {
 /* Saves settings to a file. If s is nil, the empty file is generated. */
 func SaveSettings(s *Settings) error {
 	if s == nil {
-		s = &Settings{DefaultLocation: nil}
+		s = &Settings{DefaultLocation: nil, RequestLimit: -1}
 	}
 
 	if _, err := os.Stat(path.Join(ROOT_DIR, SETTINGS_DIR)); os.IsNotExist(err) {

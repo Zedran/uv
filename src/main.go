@@ -88,5 +88,20 @@ func main() {
 		log.Fatal(err)
 	}
 
-	fmt.Printf("%s, %s    %.3f %.3f    %s\n\n%s\n", loc.Name, loc.Country, loc.Lat, loc.Lon, uv.UVTime, uv.ToString())
+	reqString := ""
+
+	// Setting request limit to -1 (or any negative) disables cache
+	if s.RequestLimit > 0 {
+		requestsLeft, err := ProcessRequestCounter(s)
+		if err != nil {
+			log.Fatal(err)
+		}
+
+		reqString = fmt.Sprintf("[%d]", requestsLeft)
+	} else if s.RequestLimit == 0 {
+		reqString = "[bad limit]" // 0 is not a proper request limit
+	}
+
+	fmt.Printf("%s, %s    %.3f %.3f    %s    %s\n\n%s\n", 
+		loc.Name, loc.Country, loc.Lat, loc.Lon, uv.UVTime, reqString, uv.ToString())
 }
