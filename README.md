@@ -54,6 +54,49 @@ If the city name has more than one word in it, wrap it in quotes. If you want to
 | `uv`                     | query the API using the default location           |
 | `uv -u`                  | unset the current default location                 |
 
+## Output
+
+### Structure
+
+The description of most elements is based on the [OpenUV API Documentation](https://www.openuv.io/uvindex). Time is expressed in UTC.
+
+| Element             | Description                                                               |
+|---------------------|---------------------------------------------------------------------------|
+| Header              | Location name and coordinates, generation time, [requests left]           |
+| UV Index block      | UV index - current, daily maximum (value and time) and ozone level \[du\] |
+| Sunrise             | Sunrise time                                                              |
+| Solar Noon          | Sun's zenith time                                                         |
+| Sunset              | Sunset time                                                               |
+| Night               | Night becomes dark enough for astronomical observations                   |
+| Golden Hour         | Evening golden hour's start time                                          |
+| Morning GH ends     | Morning golden hour's end time                                            |
+| Safe Exposure block | Safe sunlight exposure time for skin types on Fitzpatrick scale           |
+
+### Example 
+
+This is the example report for the city of London.
+
+```
+London, GB    51.507 -0.128    2022-08-17 07:43 UTC    [43]
+
+UV Index:
+  Current:   1.27
+  Max:       5.59 (12:06)
+  Ozone:   332.50
+
+Sunrise:           04:50
+Solar Noon:        12:06
+Sunset:            19:21
+Night:             21:43
+Golden Hour:       18:35
+Morning GH ends:   05:36
+
+Safe Exposure Time [min]:
+  1:   131   |   4:   262
+  2:   157   |   5:   420
+  3:   210   |   6:   787
+```
+
 ## Resources
 
 * [UV Index](https://en.wikipedia.org/wiki/Ultraviolet_index)
