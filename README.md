@@ -10,7 +10,7 @@ For the core functionality, [OpenUV](https://www.openuv.io/) API key is required
 
 ### Settings
 
-Settings are stored in a file under `./settings/uv.json`. If the file is not found, a new one is generated. With the help of this file the user provides their API keys and, optionally, a default location of choice (may be left as `null`). Specifying a default location allows to omit the passage of the same name over and over again. The default location may also be specified with an appropriate flag.
+Settings are stored in a file under `./settings/uv.json`. If the file is not found, a new one is generated. With the help of this file the user provides their API keys and, optionally, a default location of choice (may be left as `null`). Specifying a default location allows to omit the passage of the same name over and over again. The default location may also be specified with an appropriate flag. The request limit allows to track the number of daily requests left on OpenUV API account. Setting it to `-1` disables tracking.
 
 The settings file is structured as follows:
 
@@ -24,7 +24,9 @@ The settings file is structured as follows:
         "country": "GB",
         "lat":     51.50732,
         "lon":     -0.1276474
-    }
+    },
+
+    "request_limit": 50
 }
 ```
 
