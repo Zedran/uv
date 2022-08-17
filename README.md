@@ -2,7 +2,7 @@
 
 ## Introduction
 
-UV is a command line application written in Go that checks the current level of UV radiation measured on the UV Index scale.
+UV is a command line application written in Go that checks the current level of UV radiation expressed on the UV Index scale. Additionally, it displays a set of times related to the Sun's position in the sky and an estimation of safe sunlight exposure for different skin types.
 
 ## Setup
 
