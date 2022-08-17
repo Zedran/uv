@@ -6,6 +6,8 @@ UV is a command line application written in Go that checks the current level of 
 
 ## Setup
 
+Binary files are released from time to time. However, users are encouraged to build the application on their own. The only requirement is a Go compiler and building scripts are provided for Linux and Windows operating systems. The application's directory should be appended to PATH environmental variable. 
+
 For the core functionality, [OpenUV](https://www.openuv.io/) API key is required. If the user wants to specify location by city and country instead of latitude and longitude, [OpenWeather](https://openweathermap.org/) API key is needed as well.
 
 ### Settings
