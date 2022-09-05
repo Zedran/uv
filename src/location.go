@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
+	"io"
 	"net/http"
 )
 
@@ -41,6 +42,8 @@ func GetLocation(client *http.Client, settings *Settings, locName string) (*Loca
 
 	err = json.NewDecoder(resp.Body).Decode(&locations)
 	if err != nil {
+		stream, _ := io.ReadAll(resp.Body)
+		fmt.Print(string(stream))
 		return nil, err
 	} else if len(locations) == 0 {
 		return nil, errLocationNotFound

@@ -4,7 +4,7 @@ import (
 	"encoding/binary"
 	"errors"
 	"os"
-	"path"
+	"path/filepath"
 	"time"
 )
 
@@ -73,7 +73,7 @@ func ProcessRequestCounter(s *Settings) (int64, error) {
 func ReadRequestCounter() (*RequestCounter, error) {
 	var rc RequestCounter
 
-	stream, err := os.ReadFile(path.Join(ROOT_DIR, CACHE_RC))
+	stream, err := os.ReadFile(filepath.Join(ROOT_DIR, CACHE_RC))
 	if err != nil {
 		return &rc, err
 	} else if len(stream) < EXPECT_RC_LEN {
@@ -88,14 +88,14 @@ func ReadRequestCounter() (*RequestCounter, error) {
 
 /* Saves RequestCounter to cache file. */
 func SaveRequestCounter(rc *RequestCounter) error {
-	if _, err := os.Stat(path.Join(ROOT_DIR, CACHE_DIR)); os.IsNotExist(err) {
-		err := os.Mkdir(path.Join(ROOT_DIR, CACHE_DIR), 0775)
+	if _, err := os.Stat(filepath.Join(ROOT_DIR, CACHE_DIR)); os.IsNotExist(err) {
+		err := os.Mkdir(filepath.Join(ROOT_DIR, CACHE_DIR), 0775)
 		if err != nil {
 			return err
 		}
 	}
 
-	f, err := os.OpenFile(path.Join(ROOT_DIR, CACHE_RC), os.O_CREATE|os.O_TRUNC|os.O_WRONLY, 0775)
+	f, err := os.OpenFile(filepath.Join(ROOT_DIR, CACHE_RC), os.O_CREATE|os.O_TRUNC|os.O_WRONLY, 0775)
 	if err != nil {
 		return err
 	}

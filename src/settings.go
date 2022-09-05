@@ -3,7 +3,7 @@ package main
 import (
 	"encoding/json"
 	"os"
-	"path"
+	"path/filepath"
 )
 
 const (
@@ -30,7 +30,7 @@ type Settings struct {
  * an empty one.
  */
 func LoadSettings() (*Settings, error) {
-	stream, err := os.ReadFile(path.Join(ROOT_DIR, SETTINGS_FILE))
+	stream, err := os.ReadFile(filepath.Join(ROOT_DIR, SETTINGS_FILE))
 	if err != nil {
 		return nil, SaveSettings(nil)
 	}
@@ -50,8 +50,8 @@ func SaveSettings(s *Settings) error {
 		s = &Settings{DefaultLocation: nil, RequestLimit: -1}
 	}
 
-	if _, err := os.Stat(path.Join(ROOT_DIR, SETTINGS_DIR)); os.IsNotExist(err) {
-		err := os.Mkdir(path.Join(ROOT_DIR, SETTINGS_DIR), 0775)
+	if _, err := os.Stat(filepath.Join(ROOT_DIR, SETTINGS_DIR)); os.IsNotExist(err) {
+		err := os.Mkdir(filepath.Join(ROOT_DIR, SETTINGS_DIR), 0775)
 		if err != nil {
 			return err
 		}
@@ -62,7 +62,7 @@ func SaveSettings(s *Settings) error {
 		return err
 	}
 
-	f, err := os.OpenFile(path.Join(ROOT_DIR, SETTINGS_FILE), os.O_CREATE|os.O_TRUNC|os.O_WRONLY, 0775)
+	f, err := os.OpenFile(filepath.Join(ROOT_DIR, SETTINGS_FILE), os.O_CREATE|os.O_TRUNC|os.O_WRONLY, 0775)
 	if err != nil {
 		return err
 	}
