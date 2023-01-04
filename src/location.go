@@ -5,6 +5,7 @@ import (
 	"errors"
 	"fmt"
 	"io"
+	"math"
 	"net/http"
 )
 
@@ -20,8 +21,29 @@ type Location struct {
 	Country string  `json:"country"`
 
 	// Coordinates (S and W are negative)
-	Lat     float32 `json:"lat"`
-	Lon     float32 `json:"lon"`
+	Lat     float64 `json:"lat"`
+	Lon     float64 `json:"lon"`
+}
+
+/* Estimates distance [km] to another location. */
+func (loc *Location) DistanceTo(loc2 *Location) float64 {
+	const R = 6371 // Earth's mean radius [km]
+
+	deltaLat := Rad(loc.Lat - loc2.Lat)
+	deltaLon := Rad(loc.Lon - loc2.Lon)
+	meanLat  := Rad((loc.Lat + loc2.Lat) / 2)
+
+	return R * math.Sqrt(math.Pow(deltaLat, 2) + math.Pow(math.Cos(meanLat) * deltaLon, 2))
+}
+
+/* Checks whether the two locations overlap. */
+func (loc *Location) Overlaps(loc2 *Location) bool {
+	// Distance [km] at which the two locations are considered as overlapping
+	const OVERLAPPING_D float64 = 10
+
+	fmt.Println(loc.Country, loc2.Country, loc.DistanceTo(loc2))
+
+	return loc.Name == loc2.Name && loc.DistanceTo(loc2) <= OVERLAPPING_D
 }
 
 const (
@@ -45,16 +67,44 @@ func GetLocations(client *http.Client, settings *Settings, locName string) ([]Lo
 	}
 	defer resp.Body.Close()
 
-	var locations []Location
+	var matches []Location
 
-	err = json.NewDecoder(resp.Body).Decode(&locations)
+	err = json.NewDecoder(resp.Body).Decode(&matches)
 	if err != nil {
 		stream, _ := io.ReadAll(resp.Body)
 		fmt.Print(string(stream))
 		return nil, err
-	} else if len(locations) == 0 {
+	} else if len(matches) == 0 {
 		return nil, errLocationNotFound
 	}
 
-	return locations, nil
+	// Geocoding API has a tendency to return duplicated matches, which need to be filtered out
+	if len(matches) > 1 {
+		return RemoveOverlappingLocations(matches), nil
+	}
+
+	return matches, nil
+}
+
+/* Returns a copy of a Location slice without duplicated entries. */
+func RemoveOverlappingLocations(matches []Location) []Location {
+	var locations []Location
+
+	for i := range matches { // matches returned from API
+		unique := true
+
+		for j := range locations { // unique locations
+			loc := &locations[j]
+			if matches[i].Overlaps(loc) {
+				unique = false
+				break
+			}
+		}
+
+		if unique {
+			locations = append(locations, matches[i])
+		}
+	}
+
+	return locations
 }

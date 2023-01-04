@@ -1,6 +1,7 @@
 package main
 
 import (
+	"math"
 	"os"
 	"path/filepath"
 	"time"
@@ -20,6 +21,11 @@ func GetRootDir() (string, error) {
 	}
 
 	return filepath.Dir(exePath), nil
+}
+
+/* Converts degrees to radians. */
+func Rad(deg float64) float64 {
+	return deg * math.Pi / 180
 }
 
 /* Converts timestamp from format used by OpenUV API into newFormat. */
