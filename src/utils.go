@@ -13,7 +13,7 @@ const (
 )
 
 /* Returns the root directory in which the executable is located. */
- func GetRootDir() (string, error) {
+func GetRootDir() (string, error) {
 	exePath, err := os.Executable()
 	if err != nil {
 		return "", err
