@@ -10,6 +10,30 @@ import (
 
 var ROOT_DIR string
 
+/* Displays locations matching the query and prompts the user to pick one. */
+func ShowLocationPickingDialog(locations []Location) *Location {
+	fmt.Println("Multiple locations were found.\n")
+
+	for i, loc := range locations {
+		fmt.Printf(
+			"%3d:   %-15s%-26s%5s   %7.3f, %7.3f\n", 
+			i + 1, loc.Name, loc.State, loc.Country, loc.Lat, loc.Lon,
+		)
+	}
+
+	var n int
+
+	fmt.Print("\nChoose a location: ")
+	_, err := fmt.Scanln(&n)
+	fmt.Println()
+
+	if err != nil || n <= 0 || n > len(locations) {
+		log.Fatal("invalid choice")
+	}
+
+	return &locations[n - 1]
+}
+
 func main() {
 	log.SetFlags(0)
 
@@ -65,9 +89,15 @@ func main() {
 	var loc *Location
 
 	if len(*flagLocation) > 0 {
-		loc, err = GetLocation(&client, s, *flagLocation)
+		locations, err := GetLocations(&client, s, *flagLocation)
 		if err != nil {
 			log.Fatal(err)
+		}
+
+		if len(locations) > 1 {
+			loc = ShowLocationPickingDialog(locations)
+		} else {
+			loc = &locations[0]
 		}
 
 		if *flagDefaultLoc {

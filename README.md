@@ -47,6 +47,8 @@ Note that southern latitude and western longitude are negative.
 
 If the city name has more than one word in it, wrap it in quotes. If you want to specify a country name as well, separate it from the city name with a comma and put the whole thing in quotes.
 
+OpenWeather Geocoding API (`-l`) may return multiple matching locations. In such case, the user will be prompted to choose one from the list.
+
 ### Examples
 
 | Syntax                   | Meaning                                            |
