@@ -12,7 +12,7 @@ import (
 /* This struct represents a location, typically a city. */
 type Location struct {
 	// Name of a city
-	Name    string  `json:"name"`
+	City    string `json:"name"`
 
 	// State in which the city is located
 	State   string `json:"state"`
@@ -39,10 +39,10 @@ func (loc *Location) DistanceTo(loc2 *Location) float64 {
 /* Returns a full name of the location. Optionally, a state can be included. */
 func (loc *Location) GetName(includeState bool) string {
 	if includeState {
-		return fmt.Sprintf("%s, %s, %s", loc.Name, loc.State, loc.Country)
+		return fmt.Sprintf("%s, %s, %s", loc.City, loc.State, loc.Country)
 	}
 
-	return fmt.Sprintf("%s, %s", loc.Name, loc.Country)
+	return fmt.Sprintf("%s, %s", loc.City, loc.Country)
 }
 
 /* Checks whether the two locations overlap. */
@@ -50,7 +50,7 @@ func (loc *Location) Overlaps(loc2 *Location) bool {
 	// Distance [km] at which the two locations are considered as overlapping
 	const OVERLAPPING_D float64 = 10
 
-	return loc.Name == loc2.Name && loc.DistanceTo(loc2) <= OVERLAPPING_D
+	return loc.City == loc2.City && loc.DistanceTo(loc2) <= OVERLAPPING_D
 }
 
 const (
