@@ -36,6 +36,15 @@ func (loc *Location) DistanceTo(loc2 *Location) float64 {
 	return R * math.Sqrt(math.Pow(deltaLat, 2) + math.Pow(math.Cos(meanLat) * deltaLon, 2))
 }
 
+/* Returns a full name of the location. Optionally, a state can be included. */
+func (loc *Location) GetName(includeState bool) string {
+	if includeState {
+		return fmt.Sprintf("%s, %s, %s", loc.Name, loc.State, loc.Country)
+	}
+
+	return fmt.Sprintf("%s, %s", loc.Name, loc.Country)
+}
+
 /* Checks whether the two locations overlap. */
 func (loc *Location) Overlaps(loc2 *Location) bool {
 	// Distance [km] at which the two locations are considered as overlapping

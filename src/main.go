@@ -16,8 +16,8 @@ func ShowLocationPickingDialog(locations []Location) *Location {
 
 	for i, loc := range locations {
 		fmt.Printf(
-			"%3d:   %-15s%-26s%5s   %7.3f, %7.3f\n", 
-			i + 1, loc.Name, loc.State, loc.Country, loc.Lat, loc.Lon,
+			"%3d:   %-40s   %7.3f, %7.3f\n", 
+			i + 1, loc.GetName(true), loc.Lat, loc.Lon,
 		)
 	}
 
@@ -132,6 +132,6 @@ func main() {
 		reqString = "[bad limit]" // 0 is not a proper request limit
 	}
 
-	fmt.Printf("%s, %s    %.3f %.3f    %s    %s\n\n%s\n", 
-		loc.Name, loc.Country, loc.Lat, loc.Lon, uv.UVTime, reqString, uv.ToString())
+	fmt.Printf("%s    %.3f %.3f    %s    %s\n\n%s\n", 
+		loc.GetName(false), loc.Lat, loc.Lon, uv.UVTime, reqString, uv.ToString())
 }
