@@ -16,7 +16,7 @@ func ShowLocationPickingDialog(locations []Location) *Location {
 
 	for i, loc := range locations {
 		fmt.Printf(
-			"%3d:   %-40s   %7.3f, %7.3f\n", 
+			"%3d:   %-40s   %7.3f, %8.3f\n", 
 			i + 1, loc.GetName(true), loc.Lat, loc.Lon,
 		)
 	}
