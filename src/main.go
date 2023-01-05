@@ -37,10 +37,12 @@ func ShowLocationPickingDialog(locations []Location) *Location {
 func main() {
 	log.SetFlags(0)
 
-	flagLocation := flag.String("l", "", 
-								"specify report's location:\n" + 
-								"  London       - just a city\n" + 
-								"  \"London, GB\" - city and country (note the quotes and a comma)")
+	flagFindLocation    := flag.String(
+		"f", "", 
+		"find location by name:\n" + 
+		"  London       - just a city\n" + 
+		"  \"London, GB\" - city and country (note the quotes and a comma)",
+	)
 
 	flagDefaultLoc      := flag.Bool("d", false, "set the passed location as default")
 	flagUnsetDefaultLoc := flag.Bool("u", false, "unsets the current default location")
@@ -88,8 +90,8 @@ func main() {
 
 	var loc *Location
 
-	if len(*flagLocation) > 0 {
-		locations, err := GetLocations(&client, s, *flagLocation)
+	if len(*flagFindLocation) > 0 {
+		locations, err := FindLocation(&client, s, *flagFindLocation)
 		if err != nil {
 			log.Fatal(err)
 		}
