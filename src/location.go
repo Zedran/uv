@@ -41,8 +41,6 @@ func (loc *Location) Overlaps(loc2 *Location) bool {
 	// Distance [km] at which the two locations are considered as overlapping
 	const OVERLAPPING_D float64 = 10
 
-	fmt.Println(loc.Country, loc2.Country, loc.DistanceTo(loc2))
-
 	return loc.Name == loc2.Name && loc.DistanceTo(loc2) <= OVERLAPPING_D
 }
 
