@@ -32,9 +32,9 @@ func (loc *Location) DistanceTo(loc2 *Location) float64 {
 	return R * math.Sqrt(math.Pow(deltaLat, 2) + math.Pow(math.Cos(meanLat) * deltaLon, 2))
 }
 
-/* Returns a full name of the location. Optionally, a state can be included. */
+/* Returns a full name of the location. Optionally, a state can be included if available. */
 func (loc *Location) GetName(includeState bool) string {
-	if includeState {
+	if includeState && len(loc.State) > 0 {
 		return fmt.Sprintf("%s, %s, %s", loc.City, loc.State, loc.Country)
 	}
 
