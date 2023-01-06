@@ -12,7 +12,7 @@ var ROOT_DIR string
 
 /* Displays locations matching the query and prompts the user to pick one. */
 func ShowLocationPickingDialog(locations []Location) *Location {
-	fmt.Println("Multiple locations were found.\n")
+	fmt.Print("Multiple locations were found.\n\n")
 
 	for i, loc := range locations {
 		fmt.Printf(
