@@ -10,6 +10,22 @@ import (
 	"strings"
 )
 
+const (
+	// Maximum number of matches returned from the Geocoding API
+	MAX_RESP_LOCS     int    = 10
+
+	// A template URL for querying the Geocoding API
+	OPEN_WEATHER_URL  string = "https://api.openweathermap.org/geo/1.0/direct?q=%s&limit=%d&appid=%s"
+)
+
+var (
+    // This error is returned by GetLocation if the Geocoding API does not provide any result for the query
+    errLocationNotFound error = errors.New("location not found")
+
+	// The error raised if the user-specified location (-l) is improperly structured
+	errLocStringInvalid error = errors.New("improper structure of the specified location")
+)
+
 /* This struct represents a location, typically a city. */
 type Location struct {
 	// Name of a location
@@ -49,22 +65,6 @@ func (loc *Location) Overlaps(loc2 *Location) bool {
 
 	return loc.City == loc2.City && loc.DistanceTo(loc2) <= OVERLAPPING_D
 }
-
-const (
-	// Maximum number of matches returned from the Geocoding API
-	MAX_RESP_LOCS     int    = 10
-
-	// A template URL for querying the Geocoding API
-	OPEN_WEATHER_URL  string = "https://api.openweathermap.org/geo/1.0/direct?q=%s&limit=%d&appid=%s"
-)
-
-var (
-    // This error is returned by GetLocation if the Geocoding API does not provide any result for the query
-    errLocationNotFound error = errors.New("location not found")
-
-	// The error raised if the user-specified location (-l) is improperly structured
-	errLocStringInvalid error = errors.New("improper structure of the specified location")
-)
 
 /* Queries the OpenWeather Geocoding API for the name specified by locName and returns a slice containing
  * matching location names.
