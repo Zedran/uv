@@ -88,8 +88,6 @@ func main() {
 	} else if s == nil {
 		fmt.Println("Settings file has been generated.")
 		return
-	} else if len(s.OpenWeatherKey) == 0 {
-		log.Fatal("OpenWeather API key not provided")
 	} else if len(s.OpenUVKey) == 0 {
 		log.Fatal("OpenUV API key not provided")
 	}
@@ -113,6 +111,10 @@ func main() {
 	var loc *Location
 
 	if len(*flagFindLocation) > 0 {
+		if len(s.OpenWeatherKey) == 0 {
+			log.Fatal("OpenWeather API key not provided")
+		}
+
 		locations, err := FindLocation(&client, s, *flagFindLocation)
 		if err != nil {
 			log.Fatal(err)
