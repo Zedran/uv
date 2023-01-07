@@ -55,7 +55,12 @@ func main() {
 
 	flag.Parse()
 
-	if len(*flagFindLocation) > 0 && len(*flagSpecifyLocation) > 0 {
+	var locFlagsActive int = 0
+
+	if len(*flagFindLocation   ) > 0 { locFlagsActive++ }
+	if len(*flagSpecifyLocation) > 0 { locFlagsActive++ }
+
+	if locFlagsActive > 1 {
 		log.Fatal("flags '-f' and '-l' cannot be used simultaneously")
 	}
 
@@ -111,30 +116,22 @@ func main() {
 		} else {
 			loc = &locations[0]
 		}
-
-		if *flagDefaultLoc {
-			s.DefaultLocation = loc
-			if err = SaveSettings(s); err != nil {
-				log.Fatal(err)
-			}
-		}
 	} else if len(*flagSpecifyLocation) > 0 {
 		loc, err = SpecifyLocation(*flagSpecifyLocation)
 		if err != nil {
 			log.Fatal(err)
 		}
-
-		if *flagDefaultLoc {
-			s.DefaultLocation = loc
-			if err = SaveSettings(s); err != nil {
-				log.Fatal(err)
-			}
-		}
 	} else if s.DefaultLocation != nil {
 		loc = s.DefaultLocation
 	} else {
 		log.Fatal("no location has been specified and the default one is not set")
+	}
 
+	if *flagDefaultLoc && locFlagsActive > 0 {
+		s.DefaultLocation = loc
+		if err = SaveSettings(s); err != nil {
+			log.Fatal(err)
+		}
 	}
 
 	uv, err := GetUVReport(&client, loc, s)
