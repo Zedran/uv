@@ -44,6 +44,12 @@ func main() {
 		"  \"London, GB\" - city and country (note the quotes and a comma)",
 	)
 
+	flagSpecifyCoords   := flag.String(
+		"c", "",
+		"similar to -l, specify comma-separated coordinates only:\n" +
+		"  51.508,-0.128",
+	)
+
 	flagSpecifyLocation := flag.String(
 		"l", "", 
 		"specify own location:\n" +
@@ -58,10 +64,11 @@ func main() {
 	var locFlagsActive int = 0
 
 	if len(*flagFindLocation   ) > 0 { locFlagsActive++ }
+	if len(*flagSpecifyCoords  ) > 0 { locFlagsActive++ }
 	if len(*flagSpecifyLocation) > 0 { locFlagsActive++ }
 
 	if locFlagsActive > 1 {
-		log.Fatal("flags '-f' and '-l' cannot be used simultaneously")
+		log.Fatal("flags '-c', '-f' and '-l' cannot be used simultaneously")
 	}
 
 	if *flagDefaultLoc && *flagUnsetDefaultLoc {
@@ -115,6 +122,11 @@ func main() {
 			loc = ShowLocationPickingDialog(locations)
 		} else {
 			loc = &locations[0]
+		}
+	} else if len(*flagSpecifyCoords) > 0 {
+		loc, err = SpecifyLocation(",," + *flagSpecifyCoords)
+		if err != nil {
+			log.Fatal(err)
 		}
 	} else if len(*flagSpecifyLocation) > 0 {
 		loc, err = SpecifyLocation(*flagSpecifyLocation)
