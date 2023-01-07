@@ -23,6 +23,7 @@ The settings file is structured as follows:
 
     "default_location": {
         "name":    "London",
+        "state":   "England",
         "country": "GB",
         "lat":     51.50732,
         "lon":     -0.1276474
