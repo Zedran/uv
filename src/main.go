@@ -44,10 +44,20 @@ func main() {
 		"  \"London, GB\" - city and country (note the quotes and a comma)",
 	)
 
+	flagSpecifyLocation := flag.String(
+		"l", "", 
+		"specify own location:\n" +
+		"  \"London, GB, 51.508, -0.128\" (comma-separated)",
+	)
+
 	flagDefaultLoc      := flag.Bool("d", false, "set the passed location as default")
 	flagUnsetDefaultLoc := flag.Bool("u", false, "unsets the current default location")
 
 	flag.Parse()
+
+	if len(*flagFindLocation) > 0 && len(*flagSpecifyLocation) > 0 {
+		log.Fatal("flags '-f' and '-l' cannot be used simultaneously")
+	}
 
 	if *flagDefaultLoc && *flagUnsetDefaultLoc {
 		log.Fatal("flags '-d' and '-u' cannot be used simultaneously")
@@ -100,6 +110,18 @@ func main() {
 			loc = ShowLocationPickingDialog(locations)
 		} else {
 			loc = &locations[0]
+		}
+
+		if *flagDefaultLoc {
+			s.DefaultLocation = loc
+			if err = SaveSettings(s); err != nil {
+				log.Fatal(err)
+			}
+		}
+	} else if len(*flagSpecifyLocation) > 0 {
+		loc, err = SpecifyLocation(*flagSpecifyLocation)
+		if err != nil {
+			log.Fatal(err)
 		}
 
 		if *flagDefaultLoc {

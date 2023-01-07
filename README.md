@@ -39,27 +39,31 @@ Note that southern latitude and western longitude are negative.
 
 ### Flags
 
-| Flag | Description                                                             |
-|------|-------------------------------------------------------------------------|
-| `-d` | make the location specified with the `-l` flag the new default location |
-| `-h` | display help                                                            |
-| `-l` | specify location, otherwise the default location will be used           |
-| `-u` | unset the current default location                                      |
+| Flag | Description                                                                      |
+|------|----------------------------------------------------------------------------------|
+| `-d` | make the location specified with the `-l` or `-f` flags the new default location |
+| `-f` | search online by city and (optionally) country                                   |
+| `-h` | display help                                                                     |
+| `-l` | specify your own location by hand (without using the API)                        |
+| `-u` | unset the current default location                                               |
+
+OpenWeather Geocoding API (`-f`) may return multiple matching locations. In such case, the user will be prompted to choose one from the list.
 
 If the city name has more than one word in it, wrap it in quotes. If you want to specify a country name as well, separate it from the city name with a comma and put the whole thing in quotes.
 
-OpenWeather Geocoding API (`-l`) may return multiple matching locations. In such case, the user will be prompted to choose one from the list.
+Using the `-l` flag requires proper structure. See the examples below. If you need to use spaces, wrap the whole location data in quotes.
 
 ### Examples
 
-| Syntax                   | Meaning                                            |
-|--------------------------|----------------------------------------------------|
-| `uv -l London`           | query the API with city name only as the location  |
-| `uv -l "Rio de Janeiro"` | query the API with a multi-word city name          |
-| `uv -l "London, GB"`     | query the API by specifying city and country       |
-| `uv -l London -d`        | query the API and make London the default location |
-| `uv`                     | query the API using the default location           |
-| `uv -u`                  | unset the current default location                 |
+| Syntax                          | Meaning                                            |
+|---------------------------------|----------------------------------------------------|
+| `uv -f London`                  | query the API with city name only as the location  |
+| `uv -f "Rio de Janeiro"`        | query the API with a multi-word city name          |
+| `uv -f "London, GB"`            | query the API by specifying city and country       |
+| `uv -f London -d`               | query the API and make London the default location |
+| `uv -l London,GB,51.508,-0.128` | specify your own location (comma-separated)        |
+| `uv`                            | query the API using the default location           |
+| `uv -u`                         | unset the current default location                 |
 
 ## Output
 
