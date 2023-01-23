@@ -47,7 +47,10 @@ func (rc *RequestCounter) SetExpirationTime() {
 	rc.Expires = et.Unix()
 }
 
-/* Returns the remaining number of requests stored within cache file. */
+/* Reads the cache file, subtracts one from RequestCounter and 
+ * returns the remaining number of requests. Used on successful
+ * call to OpenUV API.
+ */
 func ProcessRequestCounter(s *Settings) (int64, error) {
 	rc, err := ReadRequestCounter()
 	if err != nil || rc.Expired() {
