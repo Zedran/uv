@@ -18,11 +18,10 @@ type UVReport struct {
 type Result struct {
 	UV        float32 `json:"uv"`
 	UVMax     float32 `json:"uv_max"`
+	Ozone     float32 `json:"ozone"`
 
 	UVTime    string  `json:"uv_time"`
 	UVMaxTime string  `json:"uv_max_time"`
-
-	Ozone     float32 `json:"ozone"`
 	OzoneTime string  `json:"ozone_time"`
 
 	SafeExposureTime  `json:"safe_exposure_time"`
