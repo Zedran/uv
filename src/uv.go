@@ -23,6 +23,7 @@ type Result struct {
 	UVMaxTime string  `json:"uv_max_time"`
 
 	Ozone     float32 `json:"ozone"`
+	OzoneTime string  `json:"ozone_time"`
 
 	SafeExposureTime  `json:"safe_exposure_time"`
 
@@ -59,6 +60,7 @@ type SunTimes struct {
 func (uv *UVReport) Reformat() {
 	uv.UVTime     = ReformatTime(uv.UVTime,     HEADER_TIME_FORMAT)
 	uv.UVMaxTime  = ReformatTime(uv.UVMaxTime,  DEFAULT_SUN_TIMES_FORMAT)
+	uv.OzoneTime  = ReformatTime(uv.OzoneTime,  DEFAULT_SUN_TIMES_FORMAT)
 
 	uv.Sunrise    = ReformatTime(uv.Sunrise,    DEFAULT_SUN_TIMES_FORMAT)
 	uv.SolarNoon  = ReformatTime(uv.SolarNoon,  DEFAULT_SUN_TIMES_FORMAT)
@@ -75,7 +77,7 @@ func (uv *UVReport) ToString() string {
 		"UV Index:\n"                 + 
 		"  Current: %6.2f\n"          + 
 		"  Max:     %6.2f (%s)\n"     + 
-		"  Ozone:   %6.2f\n\n"        + 
+		"  Ozone:   %6.2f (%s)\n\n"        + 
 		"Sunrise: %15s\n"             + 
 		"Solar Noon: %12s\n"          + 
 		"Sunset: %16s\n"              + 
@@ -88,6 +90,7 @@ func (uv *UVReport) ToString() string {
 		"  3: %5d   |   6: %5d", 
 		uv.UV, uv.UVMax, uv.UVMaxTime,
 		uv.Ozone,
+		uv.OzoneTime,
 		uv.Sunrise,
 		uv.SolarNoon,
 		uv.Sunset,
