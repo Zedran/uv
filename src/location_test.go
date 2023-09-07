@@ -2,15 +2,15 @@ package main
 
 import "testing"
 
-/* This test aims to check whether the specified string is properly formed 
- * into the Location struct by SpecifyLocation function. It does not check 
+/* This test aims to check whether the specified string is properly formed
+ * into the Location struct by SpecifyLocation function. It does not check
  * coordinate conversion.
  */
 func TestSpecifyLocation(t *testing.T) {
 	correctCases := map[string]Location {
-		"London, GB, 51.508, -0.128"     : Location{"London",  "", "GB",  51.508,  -0.128},
-		", ,51.508,-0.128 "              : Location{"Unknown", "", "N/A", 51.508,  -0.128},
-		" Sendai , JP , 38.252, 140.856" : Location{"Sendai",  "", "JP",  38.252, 140.856},
+		"London, GB, 51.508, -0.128"     : {"London",  "", "GB",  51.508,  -0.128},
+		", ,51.508,-0.128 "              : {"Unknown", "", "N/A", 51.508,  -0.128},
+		" Sendai , JP , 38.252, 140.856" : {"Sendai",  "", "JP",  38.252, 140.856},
 	}
 
 	incorrectCases := []string{
