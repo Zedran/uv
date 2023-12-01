@@ -4,6 +4,8 @@ import (
 	"encoding/json"
 	"os"
 	"path/filepath"
+
+	"github.com/Zedran/uv/src/geoloc"
 )
 
 const (
@@ -20,7 +22,7 @@ type Settings struct {
 	OpenUVKey       string    `json:"open_uv_key"`
 
 	// Default location for which the report is generated if no other location is specified
-	DefaultLocation *Location `json:"default_location"`
+	DefaultLocation *geoloc.Location `json:"default_location"`
 
 	// Request limit for user's OpenUV account. Setting it to -1 disables cache.
 	RequestLimit    int64     `json:"request_limit"`

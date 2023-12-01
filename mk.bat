@@ -1,4 +1,4 @@
 @ECHO OFF
 
-go test -v ./src
+go test -v ./...
 go build -trimpath -ldflags "-s -w" -o build/uv.exe ./src

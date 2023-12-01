@@ -1,4 +1,4 @@
-package main
+package geoloc
 
 import (
 	"encoding/json"
@@ -69,8 +69,8 @@ func (loc *Location) Overlaps(loc2 *Location) bool {
 /* Queries the OpenWeather Geocoding API for the name specified by locName and returns a slice containing
  * matching location names.
  */
-func FindLocation(client *http.Client, settings *Settings, locName string) ([]Location, error) {
-	resp, err := client.Get(fmt.Sprintf(OPEN_WEATHER_URL, locName, MAX_RESP_LOCS, settings.OpenWeatherKey))
+func FindLocation(client *http.Client, keyOW, locName string) ([]Location, error) {
+	resp, err := client.Get(fmt.Sprintf(OPEN_WEATHER_URL, locName, MAX_RESP_LOCS, keyOW))
 	if err != nil {
 		return nil, err
 	}

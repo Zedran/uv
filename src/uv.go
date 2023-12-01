@@ -4,6 +4,8 @@ import (
 	"encoding/json"
 	"fmt"
 	"net/http"
+
+	"github.com/Zedran/uv/src/geoloc"
 )
 
 // A template URL for requesting data from OpenUV API
@@ -103,7 +105,7 @@ func (uv *UVReport) ToString() string {
 }
 
 /* Requests the report from OpenUV API.*/
-func GetUVReport(client *http.Client, loc *Location, s *Settings) (*UVReport, error) {
+func GetUVReport(client *http.Client, loc *geoloc.Location, s *Settings) (*UVReport, error) {
 	req, err := http.NewRequest("GET", fmt.Sprintf(OPEN_UV_URL, loc.Lat, loc.Lon), nil)
 	if err != nil {
 		return nil, err
