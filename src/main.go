@@ -8,6 +8,7 @@ import (
 	"time"
 
 	"github.com/Zedran/geoloc"
+	"github.com/Zedran/uv/src/openuv"
 )
 
 var ROOT_DIR string
@@ -150,10 +151,12 @@ func main() {
 		}
 	}
 
-	uv, err := GetUVReport(&client, loc, s)
+	uv, err := openuv.GetUVReport(&client, loc, s.OpenUVKey)
 	if err != nil {
 		log.Fatal(err)
 	}
+
+	ReformatReportTime(uv)
 
 	reqString := ""
 
@@ -170,5 +173,5 @@ func main() {
 	}
 
 	fmt.Printf("%s    %.3f %.3f    %s    %s\n\n%s\n", 
-		loc.GetName(false), loc.Lat, loc.Lon, uv.UVTime, reqString, uv.ToString())
+		loc.GetName(false), loc.Lat, loc.Lon, uv.UVTime, reqString, ReportToString(uv))
 }
