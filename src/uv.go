@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"net/http"
 
-	"github.com/Zedran/uv/src/geoloc"
+	"github.com/Zedran/geoloc"
 )
 
 // A template URL for requesting data from OpenUV API

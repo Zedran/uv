@@ -7,7 +7,7 @@ import (
 	"net/http"
 	"time"
 
-	"github.com/Zedran/uv/src/geoloc"
+	"github.com/Zedran/geoloc"
 )
 
 var ROOT_DIR string
@@ -117,7 +117,7 @@ func main() {
 			log.Fatal("OpenWeather API key not provided")
 		}
 
-		locations, err := geoloc.FindLocation(&client, s.OpenWeatherKey, *flagFindLocation)
+		locations, err := geoloc.FindLocation(&client, s.OpenWeatherKey, *flagFindLocation, geoloc.DEFAULT_MAX_RESP_LOCS)
 		if err != nil {
 			log.Fatal(err)
 		}

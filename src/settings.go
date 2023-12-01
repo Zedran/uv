@@ -5,7 +5,7 @@ import (
 	"os"
 	"path/filepath"
 
-	"github.com/Zedran/uv/src/geoloc"
+	"github.com/Zedran/geoloc"
 )
 
 const (
