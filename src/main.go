@@ -7,13 +7,13 @@ import (
 	"net/http"
 	"time"
 
-	location "github.com/Zedran/uv/src/geoloc"
+	"github.com/Zedran/uv/src/geoloc"
 )
 
 var ROOT_DIR string
 
 /* Displays locations matching the query and prompts the user to pick one. */
-func ShowLocationPickingDialog(locations []location.Location) *location.Location {
+func ShowLocationPickingDialog(locations []geoloc.Location) *geoloc.Location {
 	fmt.Print("Multiple locations were found.\n\n")
 
 	for i, loc := range locations {
@@ -110,14 +110,14 @@ func main() {
 		},
 	}
 
-	var loc *location.Location
+	var loc *geoloc.Location
 
 	if len(*flagFindLocation) > 0 {
 		if len(s.OpenWeatherKey) == 0 {
 			log.Fatal("OpenWeather API key not provided")
 		}
 
-		locations, err := location.FindLocation(&client, s.OpenWeatherKey, *flagFindLocation)
+		locations, err := geoloc.FindLocation(&client, s.OpenWeatherKey, *flagFindLocation)
 		if err != nil {
 			log.Fatal(err)
 		}
@@ -128,12 +128,12 @@ func main() {
 			loc = &locations[0]
 		}
 	} else if len(*flagSpecifyCoords) > 0 {
-		loc, err = location.SpecifyLocation(",," + *flagSpecifyCoords)
+		loc, err = geoloc.SpecifyLocation(",," + *flagSpecifyCoords)
 		if err != nil {
 			log.Fatal(err)
 		}
 	} else if len(*flagSpecifyLocation) > 0 {
-		loc, err = location.SpecifyLocation(*flagSpecifyLocation)
+		loc, err = geoloc.SpecifyLocation(*flagSpecifyLocation)
 		if err != nil {
 			log.Fatal(err)
 		}
