@@ -16,16 +16,16 @@ const (
 /* This struct represents the application's settings. */
 type Settings struct {
 	// OpenWeather API key for its geocoding service
-	OpenWeatherKey  string    `json:"open_weather_key"`
+	OpenWeatherKey  string           `json:"open_weather_key"`
 	
 	// OpenUV API key
-	OpenUVKey       string    `json:"open_uv_key"`
+	OpenUVKey       string           `json:"open_uv_key"`
 
 	// Default location for which the report is generated if no other location is specified
 	DefaultLocation *geoloc.Location `json:"default_location"`
 
 	// Request limit for user's OpenUV account. Setting it to -1 disables cache.
-	RequestLimit    int64     `json:"request_limit"`
+	RequestLimit    int64            `json:"request_limit"`
 }
 
 /* Loads settings from file. If the file is not present, it calls SaveSettings to generate

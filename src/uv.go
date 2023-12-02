@@ -8,11 +8,11 @@ import (
 
 /* Transforms the time values of openuv.UVReport struct into a more readable format. */
 func ReformatReportTime(uv *openuv.UVReport) {
-	uv.UVTime     = ReformatTime(uv.UVTime,     HEADER_TIME_FORMAT)
-	uv.UVMaxTime  = ReformatTime(uv.UVMaxTime,  DEFAULT_SUN_TIMES_FORMAT)
-	uv.OzoneTime  = ReformatTime(uv.OzoneTime,  DEFAULT_SUN_TIMES_FORMAT)
-
 	st := &uv.SunInfo.SunTimes
+
+	uv.UVTime        = ReformatTime(uv.UVTime,        HEADER_TIME_FORMAT)
+	uv.UVMaxTime     = ReformatTime(uv.UVMaxTime,     DEFAULT_SUN_TIMES_FORMAT)
+	uv.OzoneTime     = ReformatTime(uv.OzoneTime,     DEFAULT_SUN_TIMES_FORMAT)
 
 	st.Sunrise       = ReformatTime(st.Sunrise,       DEFAULT_SUN_TIMES_FORMAT)
 	st.SolarNoon     = ReformatTime(st.SolarNoon,     DEFAULT_SUN_TIMES_FORMAT)
@@ -29,7 +29,7 @@ func ReportToString(uv *openuv.UVReport) string {
 		"UV Index:\n"                 + 
 		"  Current: %6.2f\n"          + 
 		"  Max:     %6.2f (%s)\n"     + 
-		"  Ozone:   %6.2f (%s)\n\n"        + 
+		"  Ozone:   %6.2f (%s)\n\n"   + 
 		"Sunrise: %15s\n"             + 
 		"Solar Noon: %12s\n"          + 
 		"Sunset: %16s\n"              + 
