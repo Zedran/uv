@@ -3,7 +3,7 @@ package main
 import (
 	"fmt"
 
-	"github.com/Zedran/uv/src/openuv"
+	"github.com/Zedran/go-openuv"
 )
 
 /* Transforms the time values of openuv.UVReport struct into a more readable format. */
@@ -12,13 +12,15 @@ func ReformatReportTime(uv *openuv.UVReport) {
 	uv.UVMaxTime  = ReformatTime(uv.UVMaxTime,  DEFAULT_SUN_TIMES_FORMAT)
 	uv.OzoneTime  = ReformatTime(uv.OzoneTime,  DEFAULT_SUN_TIMES_FORMAT)
 
-	uv.Sunrise    = ReformatTime(uv.Sunrise,    DEFAULT_SUN_TIMES_FORMAT)
-	uv.SolarNoon  = ReformatTime(uv.SolarNoon,  DEFAULT_SUN_TIMES_FORMAT)
-	uv.Sunset     = ReformatTime(uv.Sunset,     DEFAULT_SUN_TIMES_FORMAT)
-	uv.Night      = ReformatTime(uv.Night,      DEFAULT_SUN_TIMES_FORMAT)
+	st := &uv.SunInfo.SunTimes
 
-	uv.GoldenHour = ReformatTime(uv.GoldenHour, DEFAULT_SUN_TIMES_FORMAT)
-	uv.GHMorning  = ReformatTime(uv.GHMorning,  DEFAULT_SUN_TIMES_FORMAT)
+	st.Sunrise       = ReformatTime(st.Sunrise,       DEFAULT_SUN_TIMES_FORMAT)
+	st.SolarNoon     = ReformatTime(st.SolarNoon,     DEFAULT_SUN_TIMES_FORMAT)
+	st.Sunset        = ReformatTime(st.Sunset,        DEFAULT_SUN_TIMES_FORMAT)
+	st.Night         = ReformatTime(st.Night,         DEFAULT_SUN_TIMES_FORMAT)
+
+	st.GoldenHour    = ReformatTime(st.GoldenHour,    DEFAULT_SUN_TIMES_FORMAT)
+	st.GoldenHourEnd = ReformatTime(st.GoldenHourEnd, DEFAULT_SUN_TIMES_FORMAT)
 }
 
 /* Formats the UVReport struct into string. */
@@ -41,14 +43,14 @@ func ReportToString(uv *openuv.UVReport) string {
 		uv.UV, uv.UVMax, uv.UVMaxTime,
 		uv.Ozone,
 		uv.OzoneTime,
-		uv.Sunrise,
-		uv.SolarNoon,
-		uv.Sunset,
-		uv.Night, 
-		uv.GoldenHour,
-		uv.GHMorning,
-		uv.ST1, uv.ST4, 
-		uv.ST2, uv.ST5, 
-		uv.ST3, uv.ST6,
+		uv.SunInfo.SunTimes.Sunrise,
+		uv.SunInfo.SunTimes.SolarNoon,
+		uv.SunInfo.SunTimes.Sunset,
+		uv.SunInfo.SunTimes.Night, 
+		uv.SunInfo.SunTimes.GoldenHour,
+		uv.SunInfo.SunTimes.GoldenHourEnd,
+		uv.SafeExposureTime.ST1, uv.SafeExposureTime.ST4, 
+		uv.SafeExposureTime.ST2, uv.SafeExposureTime.ST5, 
+		uv.SafeExposureTime.ST3, uv.SafeExposureTime.ST6,
 	)
 }

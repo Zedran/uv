@@ -8,7 +8,7 @@ import (
 	"time"
 
 	"github.com/Zedran/geoloc"
-	"github.com/Zedran/uv/src/openuv"
+	"github.com/Zedran/go-openuv"
 )
 
 var ROOT_DIR string
@@ -151,7 +151,7 @@ func main() {
 		}
 	}
 
-	uv, err := openuv.GetUVReport(&client, loc, s.OpenUVKey)
+	uv, err := openuv.GetUVReport(&client, loc.Lat, loc.Lon, s.OpenUVKey)
 	if err != nil {
 		log.Fatal(err)
 	}
