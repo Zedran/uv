@@ -129,12 +129,12 @@ func main() {
 			loc = &locations[0]
 		}
 	} else if len(*flagSpecifyCoords) > 0 {
-		loc, err = geoloc.SpecifyLocation(",," + *flagSpecifyCoords)
+		loc, err = SpecifyLocation(",," + *flagSpecifyCoords)
 		if err != nil {
 			log.Fatal(err)
 		}
 	} else if len(*flagSpecifyLocation) > 0 {
-		loc, err = geoloc.SpecifyLocation(*flagSpecifyLocation)
+		loc, err = SpecifyLocation(*flagSpecifyLocation)
 		if err != nil {
 			log.Fatal(err)
 		}
